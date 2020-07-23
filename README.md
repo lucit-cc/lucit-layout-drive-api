@@ -79,3 +79,15 @@ Array
     [ok] => 1
 )
 ```
+
+
+#### Testing this composer library
+If you wish to test using this library itself before including it in another application, or, just to use this library to test your provided credentials, export id, and display id
+
+1.  Clone this repo to a local directory
+2.  Run `composer install`
+3.  Copy `tests/.env.sample.php` to `tests/.env`
+4.  Update `.env` with the required settings
+5.  Run the command `php tests/test.php` and you should see valid output
+
+
