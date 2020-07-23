@@ -1,0 +1,22 @@
+{
+    "name": "lucit/lucit-layout-drive-api",
+    "description": "This is a PHP wrapper composer library for accessing the Lucit Drive Digital Billboard Pull / Pingback Api for Lucit Layout",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ekubischta",
+            "email": "eric@lucitagency.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "Lucit": "src/"
+        }
+    }
+
+}
