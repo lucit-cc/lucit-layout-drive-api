@@ -15,9 +15,12 @@ composer require lucit/lucit-layout-drive-api
 
 #### How to fetch a creative
 
-```
+```php
 
 use \Lucit\LucitDrive;
+
+$LUCIT_DRIVE_URI = "https://layout.lucit.cc/api/v1/":
+$LUCIT_DRIVE_TOKEN = "***";
 
 $ld = LucitDrive::Init( $LUCIT_DRIVE_URI,  $LUCIT_DRIVE_TOKEN );
 
@@ -28,7 +31,7 @@ $response = $ld->getItem($EXPORT_ID,$LOCATION_ID);
 
 The following is a sample response
 
-```
+```php
 Array
 (
     [creative_datetime] => 2020-07-18T18:03:54+00:00
@@ -48,11 +51,18 @@ Array
 
 #### How to ping playback statistics
 
-```
+```php
 
 use \Lucit\LucitDrive;
 
-$ITEM_ID = GetTheItemIdFromPullResponse();
+
+$LUCIT_DRIVE_URI = "https://layout.lucit.cc/api/v1/":
+$LUCIT_DRIVE_TOKEN = "***";
+$DIGITAL_DISPLAY_ID = "DISPLAY-LUC-1-NF";
+$DATE_UTC_ISO8601 = "2020-06-28T18:42:26Z"; //UTC TIME
+$PLAY_DURATION_SECONDS = 8;
+
+$ITEM_ID = GetTheItemIdFromLastPullResponse();      //This might be like `12345`
 
 $ld = LucitDrive::Init( $LUCIT_DRIVE_URI,  $LUCIT_DRIVE_TOKEN );
 
@@ -62,7 +72,8 @@ $response = $ld->pingback( $ITEM_ID, $DIGITAL_DISPLAY_ID, $DATE_UTC_ISO8601, $PL
 ```
 
 If this is successful you will recieve an OK response
-```
+
+```php
 Array
 (
     [ok] => 1
