@@ -86,8 +86,8 @@ If you wish to test using this library itself before including it in another app
 
 1.  Clone this repo to a local directory
 2.  Run `composer install`
-3.  Copy `tests/.env.sample.php` to `tests/.env`
-4.  Update `.env` with the required settings
-5.  Run the command `php tests/test.php` and you should see valid output
+3.  Copy `examples/.env.sample.php` to `examples/.env.php`
+4.  Update `.env.php` with the required settings
+5.  Run the command `php examples/example-pull.php` and you should see valid output
 
 
