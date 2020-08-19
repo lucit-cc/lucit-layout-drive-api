@@ -57,7 +57,18 @@ class LucitDrive {
             'timeout'  => $this->timeout,
         ]);
 
-        $response = $client->request('GET', 'inventory-exports/'.$id.'/pull?api_token='.$this->token);
+        $url = 'inventory-exports/'.$id.'/pull?api_token='.$this->token;
+
+        $location_id = $options["location_id"] ?? "";
+        $show_all = $options["show_all"] ?? "";
+
+        if( $location_id )
+            $url.="&location_id=".$location_id;
+        
+        if( $show_all )
+            $url.="&show_all=".$show_all;
+
+        $response = $client->request('GET', $url );
 
         $data = json_decode($response->getBody(),true);
 
