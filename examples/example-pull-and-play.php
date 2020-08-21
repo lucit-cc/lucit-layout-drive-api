@@ -17,13 +17,14 @@ $response = $ld->getItem(LUCIT_DRIVE_EXPORT_ID,LUCIT_DRIVE_LOCATION_ID);
 
 print_r($response);
 
-$itemId = $response["items"][0]["id"];
+$digitalBoardId = $response["lucit_layout_digital_board_id"];
+$creativeId = $response["items"][0]["creative_id"];
 
 $date = date('Y-m-d H:i:s', time() );
 $duration = 8;
 
-echo "Issuing Pingback for item id : ".$itemId."\n";
+echo "Issuing Analytics Track Play for creative-id : ".$creativeId." on board id ".$digitalBoardId."\n";
 
-$pingback = $ld->pingback( $itemId, "SC_MARK_NY.1", $date, $duration);
+$pingback = $ld->play( $creativeId, $digitalBoardId, $date, $duration);
 
 print_r($pingback);

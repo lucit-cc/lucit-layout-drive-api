@@ -97,14 +97,44 @@ class LucitDrive {
             )
             return false;
 
-        return $result["lucit_layout_drive"]["item_sets"][0]["items"][0];
+        return $result["lucit_layout_drive"]["item_sets"][0];
     }
+
+    
+    /**
+     * $creativeId is the creative_id
+     * $digitalBoardId is the lucit_layout_digital_board_id that the creative ran on
+     * $playDateTime is the play date time from your system in UTC format
+     * $duration is the duration in seconds that the item was displayed for
+     */
+    public function play( string $creativeId, int $digitalBoardId, string $playDateTime, int $duration )
+    {
+        $client = new Client([
+            'base_uri' => $this->uri,
+            'timeout'  => $this->timeout,
+        ]);
+
+        $url = 'analytics/track/lucit-drive-play?api_token='.$this->token;
+        $url.="&creative_id=".$creativeId;
+        $url.="&lucit_layout_digital_board_id=".$digitalBoardId;
+        $url.="&play_datetime=".$playDateTime;
+        $url.="&duration=".$duration;
+
+        $response = $client->request('GET', $url);
+
+        $data = json_decode($response->getBody(),true);
+
+        return $data;
+
+    }
+
 
     /**
      * $itemId is the item id
      * $locationId is the location id (digital display id)
      * $playDateTime is the play date time from your system in UTC format
      * $duration is the duration in seconds that the item was displayed for
+     * @deprecated
      */
     public function pingback( int $itemId, string $locationId, string $playDateTime, int $duration )
     {
@@ -126,6 +156,30 @@ class LucitDrive {
         return $data;
 
     }
+
+    
+    /**
+     * This will return true if we can reach the API
+     */
+    public function status()
+    {
+        $client = new Client([
+            'base_uri' => $this->uri,
+            'timeout'  => $this->timeout,
+        ]);
+
+        $url = 'status?api_token='.$this->token;
+        
+        $response = $client->request('GET', $url);
+
+        $data = json_decode($response->getBody(),true);
+
+        return $data;
+
+    }
+
+
+    
 
 
 }

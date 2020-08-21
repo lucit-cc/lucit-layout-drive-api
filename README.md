@@ -31,25 +31,47 @@ $response = $ld->getItem($EXPORT_ID,$LOCATION_ID);
 
 The following is a sample response
 
+Please take note of the 2 critical data points needed for issuing us play status
+
+- `lucit_layout_digital_board_id` - The Lucit internal board id number that maps to your display\
+- `creative_id` the encoded creative id number for this specific image
+
 ```php
+
 Array
 (
-    [creative_datetime] => 2020-07-18T18:03:54+00:00
-    [id] => 12345
-    [name] => 16926A 2017 Ford F-150
-    [slug] => 16926a_2017_ford_f_150
-    [src] => https://theimagehost.home/the/path/1/318/img_5f13398aad2d4_d755bcb77855ce7ef665.png
-    [width] => 1856
-    [height] => 576
-    [weight] => 10
-    [weight_pct] => 0.25
+    [location_id] => SC_MH_2
+    [location_name] => 1414 S. Holloway St.
+    [lucit_layout_digital_board_id] => 19303
+    [item_count] => 6
+    [item_total_weight] => 60
+    [item_selected_index] => 5
+    [items] => Array
+        (
+            [0] => Array
+                (
+                    [creative_id] => C1-4C9D-LP-4PcU
+                    [creative_datetime] => 2020-07-21T19:15:06+00:00
+                    [id] => 51798
+                    [object_class] => InventoryPhoto
+                    [name] => 16914A 2012 Dodge Durango
+                    [slug] => 16914a_2012_dodge_durango
+                    [src] => ttps://theimagehost.home/the/path/1/318/img_5f13398aad2d4_d755bcb77855ce7ef665.png
+                    [width] => 1856
+                    [height] => 576
+                    [weight] => 10
+                    [weight_pct] => 0.16666667
+                )
+
+        )
+
 )
 
 
 ```
 
 
-#### How to ping playback statistics
+#### How to send playback statistics
 
 ```php
 
@@ -58,15 +80,15 @@ use \Lucit\LucitDrive;
 
 $LUCIT_DRIVE_URI = "https://layout.lucit.cc/api/v1/":
 $LUCIT_DRIVE_TOKEN = "***";
-$DIGITAL_DISPLAY_ID = "DISPLAY-LUC-1-NF";
 $DATE_UTC_ISO8601 = "2020-06-28T18:42:26Z"; //UTC TIME
 $PLAY_DURATION_SECONDS = 8;
 
-$ITEM_ID = GetTheItemIdFromLastPullResponse();      //This might be like `12345`
+$CREATIVE_ID = GetTheCreativeIdFromLastPullResponse();      //This might be like `C1-4C94-IP-4Cu4`   `creative_id`
+$DIGITAL_BOARD_ID = GetTheDigitalBoardIdIdFromLastPullResponse();      //This might be like `12345`  `lucit_layout_digital_board_id`
 
 $ld = LucitDrive::Init( $LUCIT_DRIVE_URI,  $LUCIT_DRIVE_TOKEN );
 
-$response = $ld->pingback( $ITEM_ID, $DIGITAL_DISPLAY_ID, $DATE_UTC_ISO8601, $PLAY_DURATION_SECONDS);
+$response = $ld->play( $CREATIVE_ID, $DIGITAL_BOARD_ID, $DATE_UTC_ISO8601, $PLAY_DURATION_SECONDS);
 
 
 ```
@@ -78,6 +100,7 @@ Array
 (
     [ok] => 1
 )
+
 ```
 
 

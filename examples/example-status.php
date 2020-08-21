@@ -11,19 +11,8 @@ echo "LOCATION ".LUCIT_DRIVE_LOCATION_ID."\n";
 
 $ld = LucitDrive::Init( LUCIT_DRIVE_URI, LUCIT_DRIVE_TOKEN );
 
-echo "Fetching Item\n";
+echo "Fetching Status\n";
 
-$response = $ld->getItem(LUCIT_DRIVE_EXPORT_ID,LUCIT_DRIVE_LOCATION_ID);
+$response = $ld->status();
 
 print_r($response);
-
-$itemId = $response["items"][0]["id"];
-
-$date = date('Y-m-d H:i:s', time() );
-$duration = 8;
-
-echo "Issuing Pingback for item id : ".$itemId."\n";
-
-$pingback = $ld->pingback( $itemId, "SC_MARK_NY.1", $date, $duration);
-
-print_r($pingback);
