@@ -1,19 +1,26 @@
+## Lucit Layout Drive Api
+
 This is a sample PHP Composer Package which contains a small library for making requests to the V1 Lucit Drive api for export pulls and pingbacks.
 
 The full documentation for the Lucit Drive API is located at : https://lucit.cc/lucit-drive-api/
 
-#### Installing this library
+## Prerequisites
+Requires PHP and Composer - Requires a token to the Lucit Layout API 
+
+
+## Installing
+
 ```
 composer require lucit/lucit-layout-drive-api
 ````
 
-#### What you will need to use this library
+### What you will need to use this library
 - The full URL to the Lucit V1 Api - Currently this is : `https://layout.lucit.cc/api/v1/`
 - A V1 Api Token (you will be provided this by Lucit)
 - An export id (you will be provided this by Lucit)
 - A LOCATION_ID / Digital Display Id (This is your internal ID that our campaign is scheduled to run on)
 
-#### How to fetch a creative
+### How to fetch a creative
 
 ```php
 
@@ -60,6 +67,7 @@ Array
                     [width] => 1856
                     [height] => 576
                     [weight] => 10
+                    [pingback_url] => https://layout.lucit.cc/api/v1/analytics/track/lucit-drive-play/?creative_id=C1-4C9D-LP-4PcU&lucit_layout_digital_board_id=19303&play_datetime=${PLAY_DATETIME_UTC}&play_duration=${PLAY_DURATION_SECONDS}&api_token=${API_TOKEN}
                     [weight_pct] => 0.16666667
                 )
 
@@ -71,7 +79,9 @@ Array
 ```
 
 
-#### How to send playback statistics
+## How to send playback statistics
+
+You can send playback stats by usin the library, or, by forming your own request from the `pingback-url` element which appears in the pull result (See docs)
 
 ```php
 
@@ -104,7 +114,7 @@ Array
 ```
 
 
-#### Testing this composer library
+## Testing this composer library
 If you wish to test using this library itself before including it in another application, or, just to use this library to test your provided credentials, export id, and display id
 
 1.  Clone this repo to a local directory
@@ -114,3 +124,11 @@ If you wish to test using this library itself before including it in another app
 5.  Run the command `php examples/example-pull.php` and you should see valid output
 
 
+
+## License
+All source code is licensed under the [Apache 2.0 license](LICENSE), the same license as for the Arcanist project.
+
+## Lucit
+Lucit is the company behind Layout : The application that connects big-ticket inventory applications (Automotive, Ag, Rec, Real Estate) to digital billboards, in real-time.
+
+We stream inventory - direct, in real-time to digital billboards, anywhere. https://lucit.cc
