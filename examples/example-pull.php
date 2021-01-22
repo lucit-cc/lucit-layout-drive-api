@@ -5,25 +5,54 @@ require_once '.env.php';
 
 use Lucit\LucitDrive;
 
-echo "URI ".LUCIT_DRIVE_URI."\n";
-echo "EXPORT ".LUCIT_DRIVE_EXPORT_ID."\n";
-echo "LOCATION ".LUCIT_DRIVE_LOCATION_ID."\n";
+echo "URI : ".LUCIT_DRIVE_URI."\n";
+echo "EXPORT : ".LUCIT_DRIVE_EXPORT_ID."\n";
+echo "LOCATION : ".LUCIT_DRIVE_LOCATION_ID."\n";
 
 $ld = LucitDrive::Init( LUCIT_DRIVE_URI, LUCIT_DRIVE_TOKEN );
 
-echo "Fetching Item\n";
+echo "Fetching Item...\n";
+echo "";
 
 $response = $ld->getItem(LUCIT_DRIVE_EXPORT_ID,LUCIT_DRIVE_LOCATION_ID);
 
-print_r($response);
+foreach( $response as $responseKey=>$responseValue)
+{
+    if( $responseKey !== "items" )
+    {
+        echo "   ".$responseKey." : \t\t".$responseValue."\n";
+    }
+}
 
-$itemId = $response["items"][0]["id"];
+$item = $response["items"][0];  //first item in set
 
-$date = date('Y-m-d H:i:s', time() );
-$duration = 8;
 
-echo "Issuing Pingback for item id : ".$itemId."\n";
+foreach( $item as $itemKey=>$itemValue)
+{   
+    echo "   ".$itemKey." : \t\t".$itemValue."\n";
+}
 
-$pingback = $ld->pingback( $itemId, "SC_MARK_NY.1", $date, $duration);
 
-print_r($pingback);
+echo "\n\n";
+echo "Testing Hash : \n";
+echo "\n\n";
+echo "You can perform this manually with the following command : \n";
+echo "                  curl -s ".$item["src"]." | md5sum\n\n";
+echo "\n\n";
+echo "      Hash Is : ".$item["hash"]."\n";
+echo "      Hash Algo Is : ".$item["hash_algo"]."\n";
+
+$hashPasses = $ld->validateItemHash( $item );
+
+if( $hashPasses )
+{
+    echo "Hash Matches Remote Image\n";
+}
+else
+{
+    echo "FAILED : Hash does not match Remote Image\n";
+
+}
+
+
+echo "\n\n";

@@ -63,7 +63,9 @@ Array
                     [object_class] => InventoryPhoto
                     [name] => 16914A 2012 Dodge Durango
                     [slug] => 16914a_2012_dodge_durango
-                    [src] => ttps://theimagehost.home/the/path/1/318/img_5f13398aad2d4_d755bcb77855ce7ef665.png
+                    [src] => https://theimagehost.home/the/path/1/318/img_5f13398aad2d4_d755bcb77855ce7ef665.png
+                    [hash] => "d41d8cd98f00b204e9800998ecf8427e"
+                    [hash_algo] => "md5"
                     [width] => 1856
                     [height] => 576
                     [weight] => 10
@@ -77,6 +79,31 @@ Array
 
 
 ```
+
+
+## How to validate the image response
+
+You can validate that the image is the expected image by comparing the `hash` of the image with your own calculated hash of the image file, using the algorithm specified in `hash_algo`
+
+You can use our library to do this as follows
+
+```php
+
+$ld = LucitDrive::Init( $LUCIT_DRIVE_URI,  $LUCIT_DRIVE_TOKEN );
+
+$response = $ld->getItem($EXPORT_ID,$LOCATION_ID);
+
+$item = $response["items"][0];
+
+$imageIsValid = $ld->validateItemHash( $item );
+
+if( !$imageIsValid )
+{
+    //Throw an exception
+}
+
+```
+
 
 
 ## How to send playback statistics

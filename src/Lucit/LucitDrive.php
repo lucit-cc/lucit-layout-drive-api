@@ -100,6 +100,34 @@ class LucitDrive {
         return $result["lucit_layout_drive"]["item_sets"][0];
     }
 
+    public function validateItemHash( array $item ) : bool
+    {
+        $hash = $item["hash"];
+        $hash_algo = $item["hash_algo"];
+
+        if( $hash_algo !== "md5" )
+        {
+            throw new \Exception("hash_algo ".$hash_algo." is not supported by this library");
+        }
+
+        $contents = file_get_contents($item["src"] );
+
+        if( !$contents )
+        {
+            throw new \Exception("Unable to retrieve ".$item["src"]." with file_get_contents");
+        }
+
+        if( md5($contents) === $hash )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
     
     /**
      * $creativeId is the creative_id
