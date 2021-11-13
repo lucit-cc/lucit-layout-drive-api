@@ -155,36 +155,6 @@ class LucitDrive {
         return $data;
 
     }
-
-
-    /**
-     * $itemId is the item id
-     * $locationId is the location id (digital display id)
-     * $playDateTime is the play date time from your system in UTC format
-     * $duration is the duration in seconds that the item was displayed for
-     * @deprecated
-     */
-    public function pingback( int $itemId, string $locationId, string $playDateTime, int $duration )
-    {
-        $client = new Client([
-            'base_uri' => $this->uri,
-            'timeout'  => $this->timeout,
-        ]);
-
-        $url = 'analytics/track/lucit-drive-pingback?api_token='.$this->token;
-        $url.="&item_id=".$itemId;
-        $url.="&location_id=".$locationId;
-        $url.="&play_datetime=".$playDateTime;
-        $url.="&duration=".$duration;
-
-        $response = $client->request('GET', $url);
-
-        $data = json_decode($response->getBody(),true);
-
-        return $data;
-
-    }
-
     
     /**
      * This will return true if we can reach the API
