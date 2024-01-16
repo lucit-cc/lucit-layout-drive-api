@@ -1,3 +1,23 @@
+
+
+# Deprecated
+This library is deprecated and no longer maintained.  
+
+Please migrate to V3 of the Lucit api
+
+**Resources**
+- Developer Documentation https://www.lucit.cc/developers
+- V3 Api Docs https://apidocs.lucit.app/
+- Lucit CLI Application https://github.com/lucit-cc/lucit-cli
+
+
+
+
+
+# Legacy Information
+
+The following is left here for legacy installs
+
 ## Lucit Layout Drive Api
 
 This is a sample PHP Composer Package which contains a small library for making requests to the V1 Lucit Drive api for export pulls and pingbacks.
